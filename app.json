@@ -1,0 +1,10 @@
+{
+  "name": "Oscillate",
+  "description": "A wave simulation application providing a playground for exporing HTML5 Web APIs",
+  "image": "heroku/nodejs",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
