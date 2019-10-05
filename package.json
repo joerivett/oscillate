@@ -1,0 +1,12 @@
+{
+  "name": "Oscillate",
+  "version": "0.0.1",
+  "description": "A wave simulation application providing a playground for exporing HTML5 Web APIs",
+  "main": "app.js",
+  "dependencies": {
+    "serve-static": "^1.14.1",
+    "finalhandler": "^1.1.2"
+  },
+  "author": "Joe Rivett",
+  "license": "MIT"
+}
