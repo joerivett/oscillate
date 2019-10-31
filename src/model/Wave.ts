@@ -6,6 +6,7 @@ class Wave
 
   // Wave number (k)
   private waveNumber:number;
+
   // Angular frequency (omega)
   private angularFrequency:number;
 
@@ -48,6 +49,7 @@ class Wave
   stopWave(time)
   {
     this.blnWaveActive = false;
-    this.timeStopped = time;
   }
 }
+
+export default Wave;

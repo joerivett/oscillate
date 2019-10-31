@@ -3,11 +3,18 @@
   <head>
   </head>
   <body>
+    <input type="checkbox" id="chkEnabled" checked/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.2/s.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.2/extras/named-register.min.js"></script>
     <script src="/scripts/three.min.js"></script>
     <script src="/scripts/TrackballControls.js"></script>
     <script src="/scripts/oscillate.js"></script>
     <script type="text/javascript">
-      new WaveManager();
+      window.addEventListener('load', function() {
+        System.import('main/WaveManager').then(function(main) {
+          new main.WaveManager();
+        });
+      });
     </script>
   </body>
 </html>

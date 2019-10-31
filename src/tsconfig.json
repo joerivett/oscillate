@@ -22,17 +22,16 @@
         "typings/browser.d.ts"
     ],
     "compileOnSave": true,
-    "buildOnSave": true,
     "atom": {
         "rewriteTsconfig": true
     },
     "files": [
-        "Particle.ts",
-        "three.ts",
         "typings/three.ts",
         "typings/threejs/three.d.ts",
-        "Wave.ts",
-        "WaveManager.ts",
-        "WaveRenderer.ts"
+        "view/SceneRenderer.ts",
+        "model/Particle.ts",
+        "model/World.ts",
+        "model/Wave.ts",
+        "main/WaveManager.ts"
     ]
 }

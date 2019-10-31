@@ -1,4 +1,4 @@
-class WaveRenderer
+class SceneRenderer
 {
   renderer:THREE.WebGLRenderer;
   scene:THREE.Scene;
@@ -26,12 +26,14 @@ class WaveRenderer
     dirLight.position.set(0, 5, 5);
     this.scene.add(dirLight);
 
-	this.controls = new THREE.TrackballControls( this.camera );
+	  this.controls = new THREE.TrackballControls( this.camera );
   }
 
   update()
   {
-      this.renderer.render( this.scene, this.camera );
-      this.controls.update();
+    this.renderer.render( this.scene, this.camera );
+    this.controls.update();
   }
 }
+
+export default SceneRenderer;

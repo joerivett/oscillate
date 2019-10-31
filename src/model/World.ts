@@ -1,29 +1,34 @@
-class WaveManager
+import Particle from './Particle';
+import Wave from './Wave';
+import SceneRenderer from '../view/SceneRenderer';
+
+class World
 {
   arrPoints:Array<Array<Particle>>;
 
-  startTime:number;
-
-  timer:any;
+  view:SceneRenderer;
 
   wave:Wave;
 
-  view:WaveRenderer;
-
   constructor()
   {
-    this.arrPoints = new Array();
+    this.wave = new Wave(1);
+    this.view = new SceneRenderer();
 
-    this.view = new WaveRenderer();
+    this.initWorld();
+  }
+
+  initWorld()
+  {
+    this.arrPoints = new Array();
 
     var p:Particle;
     var radius:number,
         currentParticleAngle:number,
         numParticlesInRing:number,
         particleX:number,
-        particleZ:number,
-        // Working in radians
-        TWO_PI:number = Math.PI * 2;
+        particleZ:number;
+    const TWO_PI:number = Math.PI * 2;
 
     var masterPoint:Particle = new Particle(2.2, 0, 0, 0, 0);
     // Points are added in rings, each ring represented by a sub-array of points
@@ -47,22 +52,11 @@ class WaveManager
       }
       this.arrPoints.push(thisRingPoints);
     }
-
-    this.wave = new Wave(1);
-
-    this.startWave();
   }
 
-  startWave()
+  updateParticles(startTime:number)
   {
-    this.startTime = new Date().getTime();
-
-    this.updateParticles();
-  }
-
-  updateParticles()
-  {
-    var currentTime = (new Date().getTime() - this.startTime) / 1000;
+    var currentTime = (new Date().getTime() - startTime) / 1000;
 
     var waveDistanceTravelled:number = this.wave.getWaveDistanceTravelled(currentTime);
 
@@ -85,7 +79,7 @@ class WaveManager
     }
 
     this.view.update();
-
-    requestAnimationFrame( this.updateParticles.bind(this) );
   }
 }
+
+export default World;
