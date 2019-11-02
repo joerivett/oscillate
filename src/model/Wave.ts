@@ -1,8 +1,11 @@
 class Wave
 {
-  frequency:number;
   wavelength:number;
-  WAVE_SPEED:number = 7; // Speed of sound = 340 m/s
+  WAVE_SPEED:number = 6; // Speed of sound = 340 m/s
+
+  startTime:number = 0;
+
+  private _frequency:number;
 
   // Wave number (k)
   private waveNumber:number;
@@ -20,10 +23,18 @@ class Wave
 
     // wave number (k), 2π = 1 circular rotation = 1 complete wavelength, so k = 2π/λ
     this.waveNumber = (2 * Math.PI) / this.wavelength;
-    // angular frequency (omega ω), 2πf
-    this.angularFrequency = (2 * Math.PI) * this.frequency;
+  }
 
-    this.blnWaveActive = true;
+  set frequency(newFrequency:number)
+  {
+    this._frequency = newFrequency;
+    // angular frequency (omega ω), 2πf
+    this.angularFrequency = (2 * Math.PI) * this._frequency;
+  }
+
+  start()
+  {
+    this.startTime = new Date().getTime();
   }
 
   getAmplitudeAtPoint(waveDistanceTravelled:number, pointDistance:number, time:number):number

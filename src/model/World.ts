@@ -4,15 +4,23 @@ import SceneRenderer from '../view/SceneRenderer';
 
 class World
 {
+  DISTANCE_BETWEEN_RINGS:number = 0.5;
+  DEFAULT_NUMBER_OF_RINGS:number = 11;
+  PARTICLE_RADIUS:number = 0.3;
+
   arrPoints:Array<Array<Particle>>;
 
   view:SceneRenderer;
 
   wave:Wave;
 
-  constructor()
+  numRings:number;
+
+  constructor(wave:Wave)
   {
-    this.wave = new Wave(1);
+    this.numRings = this.DEFAULT_NUMBER_OF_RINGS;
+
+    this.wave = wave;
     this.view = new SceneRenderer();
 
     this.initWorld();
@@ -22,41 +30,65 @@ class World
   {
     this.arrPoints = new Array();
 
-    var p:Particle;
-    var radius:number,
-        currentParticleAngle:number,
-        numParticlesInRing:number,
-        particleX:number,
-        particleZ:number;
-    const TWO_PI:number = Math.PI * 2;
-
     var masterPoint:Particle = new Particle(2.2, 0, 0, 0, 0);
     // Points are added in rings, each ring represented by a sub-array of points
     this.arrPoints.push(new Array(masterPoint));
     this.view.scene.add(masterPoint.sphereObject);
 
-    var thisRingPoints:Array<Particle>;
-
-    for (radius = 2.5; radius < 11; radius += 0.5)
+    for (let ringNumber = 1; ringNumber < this.numRings; ringNumber++)
     {
-      numParticlesInRing = Math.round(5 * radius);
-      thisRingPoints = new Array();
+      this.addRing(ringNumber);
+    }
+
+    this.view.update();
+  }
+
+  addRing(ringNumber:number)
+  {
+    var p:Particle;
+    let numParticlesInRing = Math.round(4 * ringNumber),
+        distanceFromOrigin = 2.5 + (ringNumber * this.DISTANCE_BETWEEN_RINGS),
+        thisRingPoints:Array<Particle> = new Array(),
+        particleX:number,
+        particleZ:number;
+
+    const TWO_PI:number = Math.PI * 2;
+    for (let currentParticleAngle = 0; currentParticleAngle < TWO_PI; currentParticleAngle += TWO_PI / numParticlesInRing)
+    {
       // Resolve angles about the y axis origin for this particle
-      for (currentParticleAngle = 0; currentParticleAngle < TWO_PI; currentParticleAngle += TWO_PI / numParticlesInRing)
+      particleX = Math.cos(currentParticleAngle) * distanceFromOrigin;
+      particleZ = Math.sin(currentParticleAngle) * distanceFromOrigin;
+      p = new Particle(this.PARTICLE_RADIUS, particleX, 0, particleZ, distanceFromOrigin);
+      thisRingPoints.push(p);
+      this.view.scene.add(p.sphereObject);
+    }
+    this.arrPoints.push(thisRingPoints);
+  }
+
+  updateRingCount(newNumRings:number)
+  {
+    if (this.arrPoints.length < newNumRings)
+    {
+      while (this.arrPoints.length < newNumRings)
       {
-        particleX = Math.cos(currentParticleAngle) * radius;
-        particleZ = Math.sin(currentParticleAngle) * radius;
-        p = new Particle(0.3, particleX, 0, particleZ, radius);
-        thisRingPoints.push(p);
-        this.view.scene.add(p.sphereObject);
+        this.addRing(this.arrPoints.length);
       }
-      this.arrPoints.push(thisRingPoints);
+    }
+    else
+    {
+      while (this.arrPoints.length > newNumRings)
+      {
+        let lastRing:Array<Particle> = this.arrPoints.pop();
+        lastRing.forEach((particle:Particle) => {
+          this.view.scene.remove(particle.sphereObject);
+        });
+      }
     }
   }
 
-  updateParticles(startTime:number)
+  updateParticles()
   {
-    var currentTime = (new Date().getTime() - startTime) / 1000;
+    var currentTime = (new Date().getTime() - this.wave.startTime) / 1000;
 
     var waveDistanceTravelled:number = this.wave.getWaveDistanceTravelled(currentTime);
 
