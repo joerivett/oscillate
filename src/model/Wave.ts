@@ -13,7 +13,7 @@ class Wave
   // Angular frequency (omega)
   private angularFrequency:number;
 
-  public blnWaveActive:boolean;
+  public isActive:boolean;
 
   constructor(frequency:number)
   {
@@ -30,11 +30,18 @@ class Wave
     this._frequency = newFrequency;
     // angular frequency (omega ω), 2πf
     this.angularFrequency = (2 * Math.PI) * this._frequency;
+    this.startTime = new Date().getTime();
   }
 
   start()
   {
     this.startTime = new Date().getTime();
+    this.isActive = true;
+  }
+
+  stop()
+  {
+    this.isActive = false;
   }
 
   getAmplitudeAtPoint(waveDistanceTravelled:number, pointDistance:number, time:number):number
@@ -55,11 +62,6 @@ class Wave
     // v = d/t
     // d = v*t
     return this.WAVE_SPEED * time;
-  }
-
-  stopWave(time)
-  {
-    this.blnWaveActive = false;
   }
 }
 

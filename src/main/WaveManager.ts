@@ -26,16 +26,25 @@ export class WaveManager
     this.updateParticles();
   }
 
+  stopWave()
+  {
+    this.wave.stop();
+  }
+
   updateParticles()
   {
-    this.world.updateParticles();
-    requestAnimationFrame( this.updateParticles.bind(this) );
+    if (this.wave.isActive)
+    {
+      this.world.updateParticles();
+      requestAnimationFrame( this.updateParticles.bind(this) );
+    }
   }
 
   initListeners()
   {
-    document.getElementById('waveFrequency').addEventListener('change', this.waveFrequency_changed.bind(this));
-    document.getElementById('ringCount').addEventListener('change', this.ringCount_changed.bind(this));
+    document.getElementById('waveRunning').addEventListener('click', this.waveRunning_clicked.bind(this));
+    document.getElementById('waveFrequency').addEventListener('input', this.waveFrequency_changed.bind(this));
+    document.getElementById('ringCount').addEventListener('input', this.ringCount_changed.bind(this));
   }
 
   waveFrequency_changed(e)
@@ -46,5 +55,17 @@ export class WaveManager
   ringCount_changed(e)
   {
     this.world.updateRingCount(e.target.value);
+  }
+
+  waveRunning_clicked()
+  {
+    if (this.wave.isActive)
+    {
+      this.stopWave();
+    }
+    else
+    {
+      this.startWave();
+    }
   }
 }
