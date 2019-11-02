@@ -12,13 +12,15 @@ class SceneRenderer
 
   initScene()
   {
+    let width:number = window.innerWidth * 0.75,
+        height:number = window.innerHeight;
     this.renderer = new THREE.WebGLRenderer();
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setSize(width, height);
 
-    document.body.appendChild(this.renderer.domElement);
+    document.getElementById('canvasContainer').appendChild(this.renderer.domElement);
 
     this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+    this.camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 1000 );
 
     this.camera.position.z = 3;
 

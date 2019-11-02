@@ -1,9 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="/styles/oscillate.css" />
   </head>
   <body>
-    <input type="checkbox" id="chkEnabled" checked/>
+    <div id="canvasContainer"></div>
+    <div id="controls">
+      <ul>
+        <li>
+          <label for="waveRunning">Enabled</label>
+          <input type="checkbox" id="waveRunning" checked />
+        </li>
+        <li>
+          <label for="ringCount">Number of rings</label>
+          <input type="range" id="ringCount" value="11" min="4" max="15" />
+        </li>
+        <li>
+          <label for="waveFrequency">Frequency</label>
+          <input type="range" id="waveFrequency" value="10" min="5" max="30" />
+        </li>
+      </ul>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.2/s.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.2/extras/named-register.min.js"></script>
     <script src="/scripts/three.min.js"></script>
