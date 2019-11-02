@@ -4,7 +4,7 @@ import SceneRenderer from '../view/SceneRenderer';
 
 class World
 {
-  DISTANCE_BETWEEN_RINGS:number = 0.5;
+  DISTANCE_BETWEEN_RINGS:number = 0.7;
   DEFAULT_NUMBER_OF_RINGS:number = 11;
   PARTICLE_RADIUS:number = 0.3;
 
@@ -30,7 +30,7 @@ class World
   {
     this.arrPoints = new Array();
 
-    var masterPoint:Particle = new Particle(2.2, 0, 0, 0, 0);
+    var masterPoint:Particle = new Particle(1.5, 0, 0, 0, 0);
     // Points are added in rings, each ring represented by a sub-array of points
     this.arrPoints.push(new Array(masterPoint));
     this.view.scene.add(masterPoint.sphereObject);
@@ -45,10 +45,10 @@ class World
 
   addRing(ringNumber:number)
   {
-    var p:Particle;
-    let numParticlesInRing = Math.round(4 * ringNumber),
-        distanceFromOrigin = 2.5 + (ringNumber * this.DISTANCE_BETWEEN_RINGS),
+    let numParticlesInRing = 4 + Math.round(4 * ringNumber),
+        distanceFromOrigin = 1.5 + (ringNumber * this.DISTANCE_BETWEEN_RINGS),
         thisRingPoints:Array<Particle> = new Array(),
+        p:Particle,
         particleX:number,
         particleZ:number;
 
