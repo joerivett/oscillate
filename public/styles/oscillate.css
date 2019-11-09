@@ -1,0 +1,46 @@
+html, body
+{
+  padding: 0;
+  margin: 0;
+}
+
+#controls
+{
+  position: fixed;
+  right: 0;
+  top: 0;
+  left: 75%;
+  padding-right: 10px;
+  text-align: center;
+}
+
+span
+{
+  display: inline-block;
+  font-size: 32px;
+}
+
+span.rotate
+{
+  transform: rotate(90deg) translate(6px, -6px);
+  margin-right: 3px;
+  font-size: 40px;
+}
+
+#canvasContainer
+{
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+li
+{
+  list-style-type: none;
+  margin: 10px 0;
+}
+
+input
+{
+  margin-left: 5px;
+}
