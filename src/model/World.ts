@@ -1,5 +1,5 @@
 import Particle from './Particle';
-import Wave from './Wave';
+import Waves from './Waves';
 import SceneRenderer from '../view/SceneRenderer';
 
 class World
@@ -7,20 +7,21 @@ class World
   DISTANCE_BETWEEN_RINGS:number = 0.7;
   DEFAULT_NUMBER_OF_RINGS:number = 11;
   PARTICLE_RADIUS:number = 0.3;
+  PARTICLE_DEFAULT_Y:number = 3;
 
   arrPoints:Array<Array<Particle>>;
 
   view:SceneRenderer;
 
-  wave:Wave;
+  waves:Waves;
 
   numRings:number;
 
-  constructor(wave:Wave)
+  constructor(waves:Waves)
   {
     this.numRings = this.DEFAULT_NUMBER_OF_RINGS;
 
-    this.wave = wave;
+    this.waves = waves;
     this.view = new SceneRenderer();
 
     this.initWorld();
@@ -86,12 +87,8 @@ class World
     }
   }
 
-  updateParticles()
+  updateParticles(currentTime:number)
   {
-    var currentTime = (new Date().getTime() - this.wave.startTime) / 1000;
-
-    var waveDistanceTravelled:number = this.wave.getWaveDistanceTravelled(currentTime);
-
     var i:number,
         j:number,
         thisRingArray:Array<Particle>,
@@ -102,7 +99,7 @@ class World
       thisRingArray = this.arrPoints[i];
       if (thisRingArray.length > 0)
       {
-        thisRingAmplitude = this.wave.getAmplitudeAtPoint(waveDistanceTravelled, thisRingArray[0].distanceFromOrigin, currentTime);
+        thisRingAmplitude = this.waves.getAmplitudeAtPoint(thisRingArray[0].distanceFromOrigin, currentTime / 1000);
         for (j = 0; j < thisRingArray.length; j++)
         {
           thisRingArray[j].amplitude = thisRingAmplitude;

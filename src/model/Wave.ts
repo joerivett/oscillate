@@ -30,12 +30,16 @@ class Wave
     this._frequency = newFrequency;
     // angular frequency (omega ω), 2πf
     this.angularFrequency = (2 * Math.PI) * this._frequency;
-    this.startTime = new Date().getTime();
+  }
+
+  get frequency()
+  {
+    return this._frequency;
   }
 
   start()
   {
-    this.startTime = new Date().getTime();
+    this.startTime = performance.now() / 1000;
     this.isActive = true;
   }
 
@@ -44,24 +48,24 @@ class Wave
     this.isActive = false;
   }
 
-  getAmplitudeAtPoint(waveDistanceTravelled:number, pointDistance:number, time:number):number
+  getAmplitudeAtPoint(pointDistance:number, currentTime:number):number
   {
-    var amplitude:number = 0;
+    let amplitude:number = 0;
 
     // Ensure that wave has reached point
-    if (pointDistance <= waveDistanceTravelled)
+    if (pointDistance <= this.getWaveDistanceTravelled(currentTime))
     {
-      amplitude = Math.sin((this.waveNumber * pointDistance) - (this.angularFrequency * time));
+      amplitude = Math.sin((this.waveNumber * pointDistance) - (this.angularFrequency * (currentTime - this.startTime)));
     }
 
     return amplitude;
   }
 
-  getWaveDistanceTravelled(time:number = 0):number
+  getWaveDistanceTravelled(currentTime:number):number
   {
     // v = d/t
     // d = v*t
-    return this.WAVE_SPEED * time;
+    return this.WAVE_SPEED * (currentTime - this.startTime);
   }
 }
 

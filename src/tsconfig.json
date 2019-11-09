@@ -32,6 +32,7 @@
         "model/Particle.ts",
         "model/World.ts",
         "model/Wave.ts",
+        "model/Waves.ts",
         "main/WaveManager.ts"
     ]
 }
