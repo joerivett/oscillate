@@ -33,6 +33,7 @@
         "model/World.ts",
         "model/Wave.ts",
         "model/Waves.ts",
+        "main/AudioInput.ts",
         "main/WaveManager.ts"
     ]
 }

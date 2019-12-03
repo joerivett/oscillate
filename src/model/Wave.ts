@@ -3,6 +3,8 @@ class Wave
   wavelength:number;
   WAVE_SPEED:number = 6; // Speed of sound = 340 m/s
 
+  amplitude:number;
+
   startTime:number = 0;
 
   private _frequency:number;
@@ -15,9 +17,11 @@ class Wave
 
   public isActive:boolean;
 
-  constructor(frequency:number)
+  constructor(frequency:number, amplitude:number = 1)
   {
     this.frequency = frequency;
+    this.amplitude = amplitude;
+
     // wave speed = frequency * wavelength
     this.wavelength = this.WAVE_SPEED / frequency;
 
@@ -55,7 +59,7 @@ class Wave
     // Ensure that wave has reached point
     if (pointDistance <= this.getWaveDistanceTravelled(currentTime))
     {
-      amplitude = Math.sin((this.waveNumber * pointDistance) - (this.angularFrequency * (currentTime - this.startTime)));
+      amplitude = (Math.sin((this.waveNumber * pointDistance) - (this.angularFrequency * (currentTime - this.startTime))) * this.amplitude);
     }
 
     return amplitude;

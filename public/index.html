@@ -8,23 +8,40 @@
     <div id="canvasContainer"></div>
     <div id="controls">
       <span>O</span><span class="rotate">s</span><span>cillate</span>
-      <ul>
-        <li>
-          <label for="waveRunning">Enabled</label>
-          <input type="checkbox" id="waveRunning" checked />
-        </li>
-        <li>
-          <label for="ringCount">Number of rings</label>
-          <input type="range" id="ringCount" value="11" min="4" max="15" />
-        </li>
-        <li>
-          <label for="waveFrequency">Frequency</label>
-          <input type="range" id="waveFrequency" value="10" min="5" max="30" />
-        </li>
-      </ul>
+      <form>
+        <ul>
+          <li>
+            <label for="waveRunning">Enabled</label>
+            <input type="checkbox" id="waveRunning" checked />
+          </li>
+          <li>
+            <label for="ringCount">Number of rings</label>
+            <input type="range" id="ringCount" value="11" min="4" max="20" />
+          </li>
+          <li>
+            <label for="manualInput">Manual controls</label>
+            <input type="radio" name="inputType" id="manualInput" value="manualInput" checked />
+
+            <fieldset id="manualControls">
+              <ul>
+                <li>
+                  <label for="waveFrequency">Frequency</label>
+                  <input type="range" id="waveFrequency" value="10" min="5" max="25" />
+                </li>
+              </ul>
+            </fieldset>
+          </li>
+          <li>
+            <label for="micInput">Microphone input</label>
+            <input type="radio" name="inputType" id="micInput" value="micInput" />
+          </li>
+        </ul>
+      </form>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.2/s.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.2/extras/named-register.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
     <script src="/scripts/three.min.js"></script>
     <script src="/scripts/TrackballControls.js"></script>
     <script src="/scripts/oscillate.js"></script>

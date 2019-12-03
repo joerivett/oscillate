@@ -17,6 +17,11 @@ class Waves
     wave.start();
   }
 
+  setAmplitude(microphoneVolume: number)
+  {
+    this.waveQueue[0].amplitude = microphoneVolume * 30;
+  }
+
   // Origin here is the source of the wave
   getAmplitudeAtPoint(pointDistanceFromOrigin:number, currentTime:number):number
   {
