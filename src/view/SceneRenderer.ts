@@ -23,8 +23,8 @@ class SceneRenderer
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 1000 );
 
-    this.camera.position.z = 4;
-    this.camera.position.y = 4;
+    this.camera.position.z = 10;
+    this.camera.position.y = 8;
     this.camera.position.x = 0;
 
     var dirLight = new THREE.DirectionalLight(0xffffff, 1);

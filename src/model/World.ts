@@ -5,7 +5,7 @@ import SceneRenderer from '../view/SceneRenderer';
 class World
 {
   DISTANCE_BETWEEN_RINGS:number = 0.7;
-  DEFAULT_NUMBER_OF_RINGS:number = 11;
+  DEFAULT_NUMBER_OF_RINGS:number = 8;
   PARTICLE_RADIUS:number = 0.3;
   PARTICLE_DEFAULT_Y:number = 3;
 
@@ -31,7 +31,7 @@ class World
   {
     this.arrPoints = new Array();
 
-    var masterPoint:Particle = new Particle(1.5, 0, 0, 0, 0);
+    var masterPoint:Particle = new Particle(1.5, 0, this.PARTICLE_DEFAULT_Y, 0, 0);
     // Points are added in rings, each ring represented by a sub-array of points
     this.arrPoints.push(new Array(masterPoint));
     this.view.scene.add(masterPoint.sphereObject);
@@ -46,7 +46,7 @@ class World
 
   addRing(ringNumber:number)
   {
-    let numParticlesInRing = 4 + Math.round(4 * ringNumber),
+    let numParticlesInRing = 4 + Math.round(3.5 * ringNumber),
         distanceFromOrigin = 1.5 + (ringNumber * this.DISTANCE_BETWEEN_RINGS),
         thisRingPoints:Array<Particle> = new Array(),
         p:Particle,
@@ -59,7 +59,7 @@ class World
       // Resolve angles about the y axis origin for this particle
       particleX = Math.cos(currentParticleAngle) * distanceFromOrigin;
       particleZ = Math.sin(currentParticleAngle) * distanceFromOrigin;
-      p = new Particle(this.PARTICLE_RADIUS, particleX, 0, particleZ, distanceFromOrigin);
+      p = new Particle(this.PARTICLE_RADIUS, particleX, this.PARTICLE_DEFAULT_Y, particleZ, distanceFromOrigin);
       thisRingPoints.push(p);
       this.view.scene.add(p.sphereObject);
     }
