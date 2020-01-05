@@ -21,6 +21,8 @@ export class WaveManager
 
   audioInput:AudioInput;
 
+  active:boolean;
+
   constructor()
   {
     this.initListeners();
@@ -33,21 +35,23 @@ export class WaveManager
     this.startWave();
   }
 
-  startWave()
+  startWave():void
   {
+    this.active = true;
+
     this.waves.newWave(1);
 
     this.updateParticles(performance.now());
   }
 
-  updateParticles(currentTime:number)
+  updateParticles(currentTime:number = 0):void
   {
     if (this.inputType == InputType.MICROPHONE)
     {
       this.waves.setAmplitude(this.audioInput.volume());
     }
     this.world.updateParticles(currentTime);
-    requestAnimationFrame(this.updateParticles.bind(this));
+    if (this.active) requestAnimationFrame(this.updateParticles.bind(this));
   }
 
   setInputType(inputType:InputType):void
@@ -76,7 +80,7 @@ export class WaveManager
     document.getElementById('manualControls').disabled = 0;
   }
 
-  initListeners()
+  initListeners():void
   {
     document.getElementById('waveRunning').addEventListener('click', this.waveRunning_clicked.bind(this));
     document.getElementById('waveFrequency').addEventListener('change', this.waveFrequency_changed.bind(this));
@@ -103,13 +107,7 @@ export class WaveManager
 
   waveRunning_clicked()
   {
-    // if (this.wave.isActive)
-    // {
-    //   this.stopWave();
-    // }
-    // else
-    // {
-    //   this.startWave();
-    // }
+    this.active = !this.active;
+    if (this.active) this.updateParticles();
   }
 }
