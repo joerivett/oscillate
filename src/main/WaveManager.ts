@@ -1,6 +1,5 @@
 import World from '../model/World';
 import Waves from '../model/Waves';
-import AudioInput from './AudioInput';
 
 enum InputType {
   MICROPHONE,
@@ -19,15 +18,11 @@ export class WaveManager
 
   inputType:InputType;
 
-  audioInput:AudioInput;
-
   active:boolean;
 
   constructor()
   {
     this.initListeners();
-
-    this.setInputType(InputType.MANUAL);
 
     this.waves = new Waves();
     this.world = new World(this.waves);
@@ -46,38 +41,8 @@ export class WaveManager
 
   updateParticles(currentTime:number = 0):void
   {
-    if (this.inputType == InputType.MICROPHONE)
-    {
-      this.waves.setAmplitude(this.audioInput.volume());
-    }
     this.world.updateParticles(currentTime);
     if (this.active) requestAnimationFrame(this.updateParticles.bind(this));
-  }
-
-  setInputType(inputType:InputType):void
-  {
-    this.inputType = inputType;
-    if (this.inputType == InputType.MICROPHONE)
-    {
-      this.startMicInput();
-    }
-    else
-    {
-      this.startManalInput();
-    }
-  }
-
-  startMicInput():void
-  {
-    if (!this.audioInput) this.audioInput = new AudioInput();
-    document.getElementById('manualControls').style.opacity = '0.3';
-    document.getElementById('manualControls').disabled = 1;
-  }
-
-  startManalInput():void
-  {
-    document.getElementById('manualControls').style.opacity = '1.0';
-    document.getElementById('manualControls').disabled = 0;
   }
 
   initListeners():void
@@ -85,8 +50,6 @@ export class WaveManager
     document.getElementById('waveRunning').addEventListener('click', this.waveRunning_clicked.bind(this));
     document.getElementById('waveFrequency').addEventListener('change', this.waveFrequency_changed.bind(this));
     document.getElementById('ringCount').addEventListener('input', this.ringCount_changed.bind(this));
-    document.getElementById('micInput').addEventListener('change', this.inputType_changed.bind(this));
-    document.getElementById('manualInput').addEventListener('change', this.inputType_changed.bind(this));
   }
 
   waveFrequency_changed(e:Event)
