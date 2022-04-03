@@ -42,6 +42,14 @@ class Wave
     return this._frequency;
   }
 
+  get phase():number
+  {
+    let timePeriod:number = 1 / this.frequency;
+    let currentPhase:number = ((performance.now() / 1000) - this.startTime) / timePeriod;
+
+    return currentPhase;
+  }
+
   start()
   {
     this.startTime = performance.now() / 1000;
