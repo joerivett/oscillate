@@ -1,7 +1,7 @@
 class Wave
 {
   wavelength:number;
-  WAVE_SPEED:number = 6; // Speed of sound = 340 m/s
+  waveSpeed:number = 6;
 
   amplitude:number;
 
@@ -17,13 +17,14 @@ class Wave
 
   public isActive:boolean;
 
-  constructor(frequency:number, amplitude:number = 1)
+  constructor(frequency:number, speed:number, amplitude:number = 1)
   {
     this.frequency = frequency;
+    this.waveSpeed = speed;
     this.amplitude = amplitude;
 
     // wave speed = frequency * wavelength
-    this.wavelength = this.WAVE_SPEED / frequency;
+    this.wavelength = this.waveSpeed / frequency;
 
     // wave number (k), 2π = 1 circular rotation = 1 complete wavelength, so k = 2π/λ
     this.waveNumber = (2 * Math.PI) / this.wavelength;
@@ -69,7 +70,7 @@ class Wave
   {
     // v = d/t
     // d = v*t
-    return this.WAVE_SPEED * (currentTime - this.startTime);
+    return this.waveSpeed * (currentTime - this.startTime);
   }
 }
 

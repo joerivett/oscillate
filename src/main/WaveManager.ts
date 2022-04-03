@@ -34,7 +34,7 @@ export class WaveManager
   {
     this.active = true;
 
-    this.waves.newWave(1);
+    this.waves.newWave(1, 6);
 
     this.updateParticles(performance.now());
   }
@@ -49,23 +49,23 @@ export class WaveManager
   {
     document.getElementById('waveRunning').addEventListener('click', this.waveRunning_clicked.bind(this));
     document.getElementById('waveFrequency').addEventListener('change', this.waveFrequency_changed.bind(this));
+    document.getElementById('waveSpeed').addEventListener('change', this.waveSpeed_changed.bind(this));
     document.getElementById('ringCount').addEventListener('input', this.ringCount_changed.bind(this));
   }
 
   waveFrequency_changed(e:Event)
   {
-    this.waves.newWave(e.target.value / 10);
+    this.waves.newWave(e.target.value / 10, this.waves.currentSpeed);
+  }
+
+  waveSpeed_changed(e:Event)
+  {
+    this.waves.newWave(this.waves.currentFrequency, e.target.value);
   }
 
   ringCount_changed(e:Event)
   {
     this.world.updateRingCount(e.target.value);
-  }
-
-  inputType_changed(e:Event)
-  {
-    const val:String = String(e.target.value);
-    this.setInputType(val == 'micInput' ? InputType.MICROPHONE : InputType.MANUAL);
   }
 
   waveRunning_clicked()

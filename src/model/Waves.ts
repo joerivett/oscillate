@@ -3,15 +3,20 @@ import Wave from './Wave';
 class Waves
 {
   waveQueue:Array<Wave>;
+  currentFrequency:number;
+  currentSpeed:number;
 
   constructor()
   {
     this.waveQueue = new Array<Wave>();
   }
 
-  newWave(frequency:number)
+  newWave(frequency:number, speed:number)
   {
-    let wave:Wave = new Wave(frequency);
+    this.currentFrequency = frequency;
+    this.currentSpeed = speed;
+
+    let wave:Wave = new Wave(frequency, speed);
     if (this.waveQueue.length > 0) console.log(this.waveQueue[0].phase);
     this.waveQueue.unshift(wave);
     wave.start();
